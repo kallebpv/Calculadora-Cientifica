@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Neomórfica</title>
+    <link rel="stylesheet" href="calci.css">
+    <link rel="stylesheet" type="text/css"
+    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="calci.js"></script>
+</head> 
+<body>
+    
+<div class="container">
+    <div class="display">
+        <input id="tela" type="text" placeholder="0">
+    </div>
+
+    <div class="botoes">
+        <div class="linha">
+            <button id="ce" onclick="limparTela()">CE</button>
+            <button onclick="fatorial()">x!</button>
+            <button class="btn">(</button>
+            <button class="btn">)</button>
+            <button class="btn" onclick="adicionarOperador('%')">%</button>
+            <button id="ac" onclick="limparTudo()">AC</button>
+        </div>
+
+        <div class="linha">
+            <button onclick="funcaoTrigonometrica('sin')">sen</button>
+            <button onclick="inserirPi()">π</button>
+            <button class="btn">7</button>
+            <button class="btn">8</button>
+            <button class="btn">9</button>
+            <button class="btn" onclick="adicionarOperador('/')">÷</button>
+        </div>
+
+        <div class="linha">
+            <button onclick="funcaoTrigonometrica('cos')">cos</button>
+            <button onclick="logaritmo()">log</button>
+            <button class="btn">4</button>
+            <button class="btn">5</button>
+            <button class="btn">6</button>
+            <button class="btn" onclick="adicionarOperador('*')">x</button>
+        </div>
+
+        <div class="linha">
+            <button onclick="funcaoTrigonometrica('tan')">tan</button>
+            <button onclick="raizQuadrada()">√</button>
+            <button class="btn">1</button>
+            <button class="btn">2</button>
+            <button class="btn">3</button>
+            <button class="btn" onclick="adicionarOperador('-')">-</button>
+        </div>
+
+        <div class="linha">
+            <button onclick="inserirE()">e</button>
+            <button onclick="potenciacao()">x <span style="position: relative; bottom: .4em; right: .1em;">y</span> </button>
+            <button class="btn">0</button>
+            <button class="btn">.</button>
+            <button id="eval" onclick="calcular()">=</button>
+            <button class="btn" onclick="adicionarOperador('+')">+</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var tela = document.querySelector('#tela');
+    var btn = document.querySelectorAll('.btn');
+    var operadores = ['+', '-', '*', '/'];
+
+    // Adicionando eventos de clique para os botões
+    for (let item of btn) {
+        item.addEventListener('click', (e) => {
+            var textoBotao = e.target.innerText;
+            if (textoBotao === 'x') {
+                textoBotao = '*';
+            } else if (textoBotao === '÷') {
+                textoBotao = '/';
+            }
+            if (ehOperador(textoBotao)) {
+                adicionarOperador(textoBotao);
+            } else {
+                tela.value += textoBotao;
+            }
+        });
+    }
+
+    // Função para verificar se um caractere é um operador
+    function ehOperador(char) {
+        return ['+', '-', '*', '/'].includes(char);
+    }
+
+    // Função para adicionar operadores matemáticos
+    function adicionarOperador(operador) {
+        if (!ehUltimoCharOperador()) {
+            // Caso contrário, adicionamos o operador normalmente
+            tela.value += operador;
+        }
+    }
+
+    // Função para verificar se o último caractere é um operador
+    function ehUltimoCharOperador() {
+        var ultimoChar = tela.value.slice(-1);
+        return ['+', '-', '*', '/'].includes(ultimoChar);
+    }
+
+    // Função para limpar a tela
+    function limparTela() {
+        tela.value = '';
+    }
+
+    // Função para limpar tudo
+    function limparTudo() {
+        limparTela();
+    }
+
+    // Função para calcular o fatorial
+    function fatorial() {
+        var num = parseFloat(tela.value);
+        var resultado = 1;
+        for (var i = 2; i <= num; i++) {
+            resultado *= i;
+        }
+        tela.value = resultado;
+    }
+
+    // Função para calcular funções trigonométricas e logaritmos
+    function funcaoTrigonometrica(func) {
+        var num = parseFloat(tela.value);
+        if (func === 'sin') {
+            tela.value = Math.sin(num);
+        } else if (func === 'cos') {
+            tela.value = Math.cos(num);
+        } else if (func === 'tan') {
+            tela.value = Math.tan(num);
+        }
+    }
+
+    function logaritmo() {
+        var num = parseFloat(tela.value);
+        tela.value = Math.log(num);
+    }
+
+    // Função para calcular a raiz quadrada
+    function raizQuadrada() {
+        var num = parseFloat(tela.value);
+        tela.value = Math.sqrt(num);
+    }
+
+    // Função para inserir o valor de π
+    function inserirPi() {
+        tela.value += Math.PI;
+    }
+
+    // Função para inserir o valor de e
+    function inserirE() {
+        tela.value += Math.E;
+    }
+
+    // Função para calcular a potência
+    function potenciacao() {
+        var num1 = parseFloat(tela.value);
+        tela.value = Math.pow(num1, 2);
+    }
+
+    // Função para calcular o resultado da expressão
+    function calcular() {
+        try {
+            tela.value = eval(tela.value);
+        } catch (error) {
+            tela.value = 'Erro';
+        }
+    }
+</script>
+
+</script>
+</body>  
+</html>
+
+
+
+
+
+
