@@ -40,5 +40,3 @@ Contribuições são bem-vindas! Sinta-se à vontade para fazer um fork do proje
 ## Licença
 
 Este projeto é de código aberto e está disponível para uso público sem restrições. Sinta-se à vontade para usar, modificar e distribuir o código conforme necessário.
----
-Esse seria o seu arquivo README.md. Por favor, substitua 'Seu Nome' e 'Licença XYZ' por informações reais correspondentes ao seu projeto.
